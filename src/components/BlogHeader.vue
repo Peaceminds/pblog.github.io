@@ -2,7 +2,6 @@
     <nav>
         <ul>
             <li>
-                <!-- exact 是实现点击之后切换的参数 -->
                 <router-link to="/" exact>博客展示</router-link>
                 <router-link to="/add" exact>添加博客</router-link>
             </li>

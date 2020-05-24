@@ -52,12 +52,9 @@
 
 <script>
 export default {
-  // https://jsonplaceholder.typicode.com/
-  // https://jsonplaceholder.typicode.com/posts
   name: 'AddBlog',
   data () {
     return {
-      // msg: 'Welcome to Your Vue.js App'
       blog:{
         title:"",
         content:"",
@@ -71,7 +68,6 @@ export default {
   },
   methods:{
     post:function(){
-      // this.$http.post("https://jsonplaceholder.typicode.com/posts",{
       this.$http.post("https://vue-bgbd.firebaseio.com/posts.json", this.blog)
       .then(function(data){
         console.log(data);
@@ -82,7 +78,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #add-blog *{
   box-sizing: border-box;

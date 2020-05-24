@@ -1,14 +1,11 @@
 <template>
   <div id="app">
-    <!-- <add-blog></add-blog> -->
-    <!-- <show-blogs></show-blogs> -->
     <blog-header></blog-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld'
 import AddBlog from './components/AddBlog'
 import ShowBlogs from './components/ShowBlogs.vue'
 import BlogHeader from './components/BlogHeader'

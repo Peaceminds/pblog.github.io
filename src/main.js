@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
-// 自定义指令 crainbow theme to-uppercase...等都是全局API。想写局部API，刻在对应模型中filters下面定义（比如在computed之后）
+// 自定义指令
 Vue.directive('crainbow',{
   bind(el, binding, vnode){
     el.style.color = "#" + Math.random().toString(16).slice(2,8);
@@ -31,11 +31,6 @@ Vue.directive('theme',{
     }
   }
 })
-
-// 自定义全局过滤器
-// Vue.filter("to-uppercase", function(v){
-//   return v.toUpperCase();
-// })
 
 Vue.filter("snippet", function(v){
   return v.slice(0,100) + "...";
