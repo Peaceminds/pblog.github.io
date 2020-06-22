@@ -1,34 +1,30 @@
 <template>
-
   <!-- *** 过滤 *** -->
   <div v-theme:column="'narrow'" id="show-blogs">
     <h1>Show - Blogs</h1>
 
-    <!-- *** 搜索 *** -->    
-    <input type="text" v-model="search" placeholder="Search">
-    <div v-for="blog in filterBlogs" class="single-blog">
+    <!-- *** 搜索 *** -->
+    <input type="text" v-model="search" placeholder="Search" />
+    <div v-for="blog in filterBlogs" class="single-blog" :key="blog.title">
       <router-link v-bind:to="'/bl/' + blog.id">
-        <h2 v-bigred>{{blog.title | to-uppercase2}}
-        </h2>
+        <h2 v-bigred>{{blog.title | to-uppercase2}}</h2>
       </router-link>
-      <article>
-        {{blog.content | snippet}}
-      </article>
+      <article>{{blog.content | snippet}}</article>
     </div>
   </div>
 </template>
 
 <script>
-
+import axios from "../axios-auth";
 export default {
-  name: 'show-blogs',
-  data(){
-    return{
-      blogs:[],
-      search:""
-    }
+  name: "show-blogs",
+  data() {
+    return {
+      blogs: [],
+      search: ""
+    };
   },
-  created(){
+  created() {
     // *** 远程请求Ver.
     // this.$http.get('https://jsonplaceholder.typicode.com/posts')
     // .then(function(data){
@@ -37,52 +33,67 @@ export default {
     //   console.log(this.blogs);
     // })
 
-    // *** 数据库请求Ver.
-    this.$http.get('https://vue-bgbd.firebaseio.com/posts.json')
+    // *** vue-source + firebase数据库请求Ver.
+    // this.$http
+    //   .get("https://vue-bgbd.firebaseio.com/posts.json")
+    //   .then(function(data) {
+    //     return data.json();
+    //   })
+    //   .then(function(data) {
+    //     var blogsArray = [];
+    //     for (let key in data) {
+    //       data[key].id = key;
+    //       blogsArray.push(data[key]);
+    //     }
+    //     this.blogs = blogsArray;
+    //     console.log(this.blogs);
+    //   });
+
+    // *** axios + firebase数据库请求Ver.
+    axios.get("/posts.json")
     .then(function(data){
-      return data.json()
+      return data.data;
     })
-    .then(function(data){
+    .then((data) => {
       var blogsArray = [];
       for(let key in data){
         data[key].id = key;
         blogsArray.push(data[key]);
       }
       this.blogs = blogsArray;
-      console.log(this.blogs);
     })
   },
   computed: {
-    filterBlogs:function(){
-      return this.blogs.filter((blog) => {
+    filterBlogs: function() {
+      return this.blogs.filter(blog => {
         return blog.title.match(this.search); // 找到时会返回true
-      })
+      });
     }
   },
   // 过滤器的本地化
   filters: {
-    toUppercase2(v){
+    toUppercase2(v) {
       return v.toUpperCase();
     }
   },
   // 指令的本地化
-  directives:{
-    'bigred':{
-      bind(el,binding,vnode) {
+  directives: {
+    bigred: {
+      bind(el, binding, vnode) {
         el.style.color = "red";
       }
     }
   }
-}
+};
 </script>
 
 <style>
-#show-blogs{
+#show-blogs {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.single-blog{
+.single-blog {
   padding: 20px;
   margin: 20px 0;
   box-sizing: border-box;
@@ -90,15 +101,14 @@ export default {
   border: 1px dotted #aaa;
 }
 
-#show-blogs a{
+#show-blogs a {
   color: #444;
   text-decoration: none;
 }
 
-input[type="text"]{
+input[type="text"] {
   padding: 8px;
   width: 100%;
   box-sizing: border-box;
 }
-
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="add-blog">
-    <h2>add-Blog</h2>
+  <div class="edit-blog">
+    <h2>edit-Blog</h2>
     <form v-if="!submmited">
       <label>Title</label>
       <input type="text" v-model="blog.title" required />
@@ -22,18 +22,18 @@
       <select v-model="blog.author">
         <option v-for="author in authors" :key="author">{{ author }}</option>
       </select>
-      <button v-on:click.prevent="post">添加博客</button>
+      <button v-on:click.prevent="post">编辑博客</button>
     </form>
 
     <div v-if="submmited">
-      <h3>您的博客发布成功！</h3>
+      <h3>您的博客编辑成功！</h3>
     </div>
 
     <div id="preview">
       <h3>Blog review</h3>
-      <p>Blog title: {{blog.title}}</p>
+      <p>Blog title: {{ blog.title }}</p>
       <p>Blog content:</p>
-      <p>{{blog.content}}</p>
+      <p>{{ blog.content }}</p>
       <p>博客分类:</p>
       <ul>
         <li v-for="category in blog.categories" :key="category">{{ category }}</li>
@@ -46,40 +46,45 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   name: "AddBlog",
   data() {
     return {
-      blog: {
-        title: "",
-        content: "",
-        category: "",
-        categories: [],
-        author: ""
-      },
+      id:this.$route.params.id,
+      blog: {},
       authors: ["Hemiah", "Henry", "Bucky"],
       submmited: false
     };
   },
   methods: {
-    post: function() {
-      // *** vue-source 方式
-      // this.$http
-      //   .post("https://vue-bgbd.firebaseio.com/posts.json", this.blog)
-      // *** axios 方式
-      // var _this = this;
+    fetchData(){
+      // console.log(this.id);
+      // this.$http.get("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json")
       axios
-        .post("/posts.json", this.blog)
-        // .then(function(data) {
-        //   console.log(data);
-        //   _this.submmited = true;
-        // });
-        .then((data) => { // ES6箭头函数可以避免使用this的传递
-          console.log(data);
-          this.submmited = true;
+      .get("/posts.json", this.blog)
+      .then(response => {
+        var tmpid = this.id;
+        this.blog = response.data[tmpid];
+      })
+    },
+    post: function() {
+      // this.$http
+      //   .put("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json", this.blog)
+      //   .then(function(data) {
+      //     console.log(data);
+      //     this.submmited = true;
+      //   });
+      var _this = this;
+      axios
+        .put("/posts/" + this.id + ".json", this.blog)
+        .then(function(data) {
+          _this.submmited = true;
         });
     }
+  },
+  created() {
+    this.fetchData();
   }
 };
 </script>

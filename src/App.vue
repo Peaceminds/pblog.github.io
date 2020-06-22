@@ -6,23 +6,23 @@
 </template>
 
 <script>
-import AddBlog from './components/AddBlog'
-import ShowBlogs from './components/ShowBlogs.vue'
-import BlogHeader from './components/BlogHeader'
+import AddBlog from "./components/AddBlog";
+import ShowBlogs from "./components/ShowBlogs.vue";
+import BlogHeader from "./components/BlogHeader";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AddBlog,
     ShowBlogs,
     BlogHeader
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
