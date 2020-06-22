@@ -25,29 +25,13 @@ export default {
     };
   },
   created() {
-    // *** 远程请求Ver.
+    // *** 远程请求test
     // this.$http.get('https://jsonplaceholder.typicode.com/posts')
     // .then(function(data){
     //   // console.log(data);
     //   this.blogs = data.body.slice(0,10);
     //   console.log(this.blogs);
     // })
-
-    // *** vue-source + firebase数据库请求Ver.
-    // this.$http
-    //   .get("https://vue-bgbd.firebaseio.com/posts.json")
-    //   .then(function(data) {
-    //     return data.json();
-    //   })
-    //   .then(function(data) {
-    //     var blogsArray = [];
-    //     for (let key in data) {
-    //       data[key].id = key;
-    //       blogsArray.push(data[key]);
-    //     }
-    //     this.blogs = blogsArray;
-    //     console.log(this.blogs);
-    //   });
 
     // *** axios + firebase数据库请求Ver.
     axios.get("/posts.json")
@@ -66,7 +50,7 @@ export default {
   computed: {
     filterBlogs: function() {
       return this.blogs.filter(blog => {
-        return blog.title.match(this.search); // 找到时会返回true
+        return blog.title.match(this.search);
       });
     }
   },

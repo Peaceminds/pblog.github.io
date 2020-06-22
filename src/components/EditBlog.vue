@@ -60,7 +60,6 @@ export default {
   methods: {
     fetchData(){
       // console.log(this.id);
-      // this.$http.get("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json")
       axios
       .get("/posts.json", this.blog)
       .then(response => {
@@ -69,12 +68,6 @@ export default {
       })
     },
     post: function() {
-      // this.$http
-      //   .put("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json", this.blog)
-      //   .then(function(data) {
-      //     console.log(data);
-      //     this.submmited = true;
-      //   });
       var _this = this;
       axios
         .put("/posts/" + this.id + ".json", this.blog)

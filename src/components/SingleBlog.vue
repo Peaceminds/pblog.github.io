@@ -22,28 +22,6 @@ export default {
       blog: {}
     };
   },
-  // // vue-resource
-  // created() {
-  //   this.$http
-  //     .get("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json")
-  //     .then(function(data) {
-  //       // console.log(data);
-  //       return data.json();
-  //     })
-  //     .then(function(data) {
-  //       this.blog = data;
-  //     });
-  // },
-  // methods: {
-  //   deleteSingleBlog() {
-  //     // console.log(this.id);
-  //     this.$http
-  //       .delete("https://vue-bgbd.firebaseio.com/posts/" + this.id + ".json")
-  //       .then(response => {
-  //         this.$router.push({ path: "/" });
-  //       });
-  //   }
-  // }
   created() {
     var _this = this;
     axios

@@ -64,17 +64,8 @@ export default {
   },
   methods: {
     post: function() {
-      // *** vue-source 方式
-      // this.$http
-      //   .post("https://vue-bgbd.firebaseio.com/posts.json", this.blog)
-      // *** axios 方式
-      // var _this = this;
       axios
         .post("/posts.json", this.blog)
-        // .then(function(data) {
-        //   console.log(data);
-        //   _this.submmited = true;
-        // });
         .then((data) => { // ES6箭头函数可以避免使用this的传递
           console.log(data);
           this.submmited = true;
